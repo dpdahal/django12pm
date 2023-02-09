@@ -1,0 +1,87 @@
+{% extends 'frontend/master/master.html' %}
+
+{% block content %}
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container d-flex align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products List</a></li>
+                </ol>
+
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container mt-5">
+                <div class="row">
+                    {% for product in productsData %}
+                        <div class="col-md-3">
+                            <figure class="product-media">
+
+                                <a href="/product-details/mac">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="Product image"
+                                             class="product-image">
+                                    {% endif %}
+                                </a>
+
+
+                                <div class="product-action-vertical">
+                                    <a href="#"
+                                       class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                </div><!-- End .product-action -->
+
+                                <div class="product-action product-action-dark">
+                                    <a href="#" class="btn-product btn-cart"
+                                       title="Add to cart"><span>add to cart</span></a>
+                                    <a href="/product-details/mac" class="btn-product btn-quickview"
+                                       title="Quick view"><span>quick view</span></a>
+                                </div><!-- End .product-action -->
+                            </figure>
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a href="#">{{ product.category.name }}</a>
+                                </div><!-- End .product-cat -->
+                                <h3 class="product-title"><a href="">{{ product.name }}</a></h3>
+                                <!-- End .product-title -->
+                                <div class="product-price">
+                                    ${{ product.price }}
+                                </div><!-- End .product-price -->
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
+                                    </div><!-- End .ratings -->
+                                    <span class="ratings-text">( 2 Reviews )</span>
+                                </div><!-- End .rating-container -->
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div><!-- End .container -->
+            <div class="container">
+                <div class="pagination">
+    <span class="step-links">
+        {% if productsData.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ productsData.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ productsData.number }} of {{ productsData.paginator.num_pages }}.
+        </span>
+
+        {% if productsData.has_next %}
+            <a href="?page={{ productsData.next_page_number }}">next</a>
+            <a href="?page={{ productsData.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                </div>
+            </div>
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+{% endblock %}

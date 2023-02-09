@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'ecommerce.apps.EcommerceConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'cart',
 ]
+
+CART_SESSION_ID = 'cart'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

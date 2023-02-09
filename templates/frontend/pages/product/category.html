@@ -1,0 +1,92 @@
+{% extends 'frontend/master/master.html' %}
+
+{% block content %}
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container d-flex align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Category</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Default</li>
+                </ol>
+
+                <nav class="product-pager ml-auto" aria-label="Product">
+                    <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                        <i class="icon-angle-left"></i>
+                        <span>Prev</span>
+                    </a>
+
+                    <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                        <span>Next</span>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </nav><!-- End .pager-nav -->
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+
+                <h2 class="title text-center mb-4">Category Data</h2><!-- End .title text-center -->
+
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                     data-owl-options='{
+                            "nav": false,
+                            "dots": true,
+                            "margin": 20,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "480": {
+                                    "items":2
+                                },
+                                "768": {
+                                    "items":3
+                                },
+                                "992": {
+                                    "items":4
+                                },
+                                "1200": {
+                                    "items":4,
+                                    "nav": true,
+                                    "dots": false
+                                }
+                            }
+                        }'>
+                    {% for rProduct in productsData %}
+                    <div class="product product-7 text-center">
+                        <figure class="product-media">
+                            <span class="product-label label-new">{{ rProduct.name }}</span>
+                            {% if rProduct.image %}
+                            <a href="{% url 'product-details' rProduct.slug %}">
+                                <img src="{{ rProduct.image.url }}" alt="Product image"
+                                     class="product-image">
+                            </a>
+                            {% endif %}
+
+                            <div class="product-action-vertical">
+                                <a href="#"
+                                   class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                <a href="{% url 'product-details' rProduct.slug %}" class="btn-product-icon btn-quickview"
+                                   title="Quick view"><span>Quick view</span></a>
+                                <a href="#" class="btn-product-icon btn-compare"
+                                   title="Compare"><span>Compare</span></a>
+                            </div><!-- End .product-action-vertical -->
+
+                            <div class="product-action">
+                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                            </div><!-- End .product-action -->
+                        </figure><!-- End .product-media -->
+
+                    </div>
+                    {% endfor %}
+                    <!-- End .product -->
+
+                </div><!-- End .owl-carousel -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+{% endblock %}

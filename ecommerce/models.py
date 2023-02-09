@@ -1,8 +1,18 @@
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 
+from django.contrib.auth.models import User
+
 
 # Create your models here.
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    phone = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -52,7 +62,6 @@ class Banner(models.Model):
         return self.name
 
 
-
 class Setting(models.Model):
     name = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100, unique=True)
@@ -62,7 +71,5 @@ class Setting(models.Model):
     logo = models.ImageField(upload_to='media/logo')
     description = RichTextUploadingField(blank=True, null=True)
 
-
     def __str__(self):
         return self.name
-
